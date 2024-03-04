@@ -99,6 +99,13 @@ if [ ! -d "${confdir}" ]; then
     exit 1
 fi
 
+# Load any module that the installation might need.
+if [ -e "${confdir}/required_modules.txt" ]; then
+    while IFS= read -r line
+    do
+        module load "$line"
+    done < "${confdir}/required_modules.txt"
+fi
 
 if [ -n "${base}" ]; then
     conda_dir="${base}"
@@ -249,12 +256,21 @@ rm -rf "${conda_tmp}" &> /dev/null
 find "/tmp" -maxdepth 1 -type f -name 'pixell-*' -exec rm {} \;
 
 
-# Install local and upstream conda packages all at once.
+# Install upstream conda packages.
 echo -e "\n\n"
 echo "Installing conda packages..." | tee "log_conda"
-conda_exec install --yes ${local_pkgs} \
+conda_exec install --yes \
     --file "${scriptdir}/config/common.txt" \
     --file "${confdir}/packages_conda.txt" \
+    2>&1 | tee -a "log_conda"
+
+conda_exec deactivate
+conda_exec activate "${fullenv}"
+
+# Install local conda packages.
+echo -e "\n\n"
+echo "Installing local packages..." | tee -a "log_conda"
+conda_exec install --yes --use-local ${local_pkgs} \
     2>&1 | tee -a "log_conda"
 
 conda_exec deactivate
