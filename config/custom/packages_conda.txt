@@ -1,0 +1,17 @@
+# Adjust the default python version
+python=3.10.*
+#
+jupyterlab
+wurlitzer
+plotly
+plotly-resampler
+# Following packages for SOOPERCOOL
+cfitsio
+fftw
+namaster
+sacc
+camb
+numpydoc
+sympy
+qp-prob
+jinja2
