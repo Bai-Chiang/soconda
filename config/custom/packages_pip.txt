@@ -15,3 +15,11 @@ https://github.com/simonsobs/sotodlib/archive/master.tar.gz
 # Following packages for SOOPERCOOL
 https://github.com/simonsobs/SOOPERCOOL/archive/main.tar.gz
 #https://github.com/simonsobs/so_noise_models/archive/master.tar.gz
+# BBPipe
+libsubmit==0.4.0
+parsl<0.6.0
+https://github.com/simonsobs/BBPipe/archive/master.tar.gz
+#fgbuster
+git+http://github.com/dpole/cmbdb.git@master
+git+https://github.com/fgbuster/fgbuster@master
+#BBPower
