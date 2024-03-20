@@ -181,7 +181,7 @@ if [ -z "${env_check}" ]; then
     echo "Activating environment \"${fullenv}\""
     conda_exec activate "${fullenv}"
 
-    if [ -n "$MAMBA_EXE" ]; then
+    if [[ -z "${base}" && -z "$CONDA_EXE" && -n "$MAMBA_EXE" ]]; then
         # Install conda packages to mamba env
         conda_exec install --yes conda conda-build conda-verify
         # Here we installed conda-build to mamba environment.
@@ -270,10 +270,10 @@ conda_exec activate "${fullenv}"
 # Install local conda packages.
 echo -e "\n\n"
 echo "Installing local packages..." | tee -a "log_conda"
-if [ -z "$MAMBA_EXE" ]; then
+if [[ -n "${base}" || -n "$CONDA_EXE" ]]; then
     conda_exec install --yes --use-local ${local_pkgs} \
         2>&1 | tee -a "log_conda"
-else
+elif [ -n "$MAMBA_EXE" ]; then
     # micromamba does not have --use-local option,  but it follows the
     # channel priority order defined in `${CONDA_PREFIX}/.condarc`
     conda_exec install --yes ${local_pkgs} \
