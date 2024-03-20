@@ -270,8 +270,15 @@ conda_exec activate "${fullenv}"
 # Install local conda packages.
 echo -e "\n\n"
 echo "Installing local packages..." | tee -a "log_conda"
-conda_exec install --yes --use-local ${local_pkgs} \
-    2>&1 | tee -a "log_conda"
+if [ -z "$MAMBA_EXE" ]; then
+    conda_exec install --yes --use-local ${local_pkgs} \
+        2>&1 | tee -a "log_conda"
+else
+    # micromamba does not have --use-local option,  but it follows the
+    # channel priority order defined in `${CONDA_PREFIX}/.condarc`
+    conda_exec install --yes ${local_pkgs} \
+        2>&1 | tee -a "log_conda"
+fi
 
 conda_exec deactivate
 conda_exec activate "${fullenv}"
