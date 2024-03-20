@@ -39,3 +39,5 @@ pandas
 tqdm
 #BBPower
 emcee
+ipython_genutils
+dominate
