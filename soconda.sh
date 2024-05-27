@@ -68,7 +68,14 @@ if [ -z "${envname}" ]; then
     envname="soconda"
 fi
 # The full environment name, including the root and version.
-fullenv="${envname}_${version}"
+if [ "${envname}" = "base" ]; then
+    # We are installing directly to the base conda env.  This is normally
+    # a bad idea, but sometimes makes sense (e.g. inside a docker
+    # container).
+    fullenv="base"
+else
+    fullenv="${envname}_${version}"
+fi
 # Determine whether the new environment is a name or a full path.
 env_noslash=$(echo "${fullenv}" | sed -e 's/\///g')
 if [ "${env_noslash}" != "${fullenv}" ]; then
@@ -107,6 +114,7 @@ if [ -e "${confdir}/required_modules.txt" ]; then
     done < "${confdir}/required_modules.txt"
 fi
 
+is_micromamba='no'
 if [ -n "${base}" ]; then
     conda_dir="${base}"
     # Initialize conda
@@ -119,17 +127,20 @@ if [ -n "${base}" ]; then
 else
     # User did not specify where to find it
     if [ -n "$CONDA_EXE" ]; then
-        echo "Find conda command at ${CONDA_EXE}"
+        echo "Found conda command at ${CONDA_EXE}"
         conda_dir="$(dirname $(dirname $CONDA_EXE))"
         # Initialize conda
         eval "$("$CONDA_EXE" 'shell.bash' 'hook')"
         conda_exec () { conda "$@" ; }
     elif [ -n "$MAMBA_EXE" ]; then
-        echo "Find micromamba command at ${MAMBA_EXE}"
+        # If both $CONDA_EXE and $MAMBA_EXE variables are defined,
+        # $CONDA_EXE will take precedence.
+        echo "Found micromamba command at ${MAMBA_EXE}"
         conda_dir="$MAMBA_ROOT_PREFIX"
         # Initialize micromamba
         eval "$("$MAMBA_EXE" shell hook --shell bash)"
         conda_exec () { micromamba "$@" ; }
+        is_micromamba='yes'
     else
         # Could not find conda or micromamba
         echo "You must either activate the conda base environment before"
@@ -147,7 +158,8 @@ if [ -z ${CONDA_PKGS_DIRS} ]; then
         # Standard system
         # Create temp direcotry
         mkdir -p "$scriptdir/tmpfs"
-        conda_tmp=$(mktemp -d --tmpdir="$scriptdir/tmpfs")
+        # MacOS mktemp has different arguments.  This is portable.
+        conda_tmp=$(mktemp -d "$scriptdir/tmpfs/conda_pkgs.XXXXXX")
         export TMPDIR="$conda_tmp"
     else
         # Running at NERSC, use a directory in scratch
@@ -164,7 +176,7 @@ python_version=$(cat "${confdir}/packages_conda.txt" | grep 'python=')
 
 # Get just the major and minor version to use when specifying the
 # python build variant during package build.
-python_major_minor=$(echo ${python_version} | sed -e 's/python=\(3\.[[:digit:]]\+\).*/\1/')
+python_major_minor=$(echo ${python_version} | sed -E 's/python=(3\.[[:digit:]]+).*/\1/')
 
 # Check if this env exists or not.
 # env_check would be empty if it does not exist.
@@ -181,10 +193,12 @@ if [ -z "${env_check}" ]; then
     echo "Activating environment \"${fullenv}\""
     conda_exec activate "${fullenv}"
 
-    if [[ -z "${base}" && -z "$CONDA_EXE" && -n "$MAMBA_EXE" ]]; then
-        # Install conda packages to mamba env
-        conda_exec install --yes conda conda-build conda-verify
-        # Here we installed conda-build to mamba environment.
+    # If we are using micromamba (not just mamba), then there is no
+    # base environment.  In that case, install conda build tools directly.
+    # Note that conda-forge environments now ship with the `mamba` executable.
+    if [ "${is_micromamba}" = "yes" ]; then
+        # Install conda packages to micromamba env
+        conda_exec install --yes conda conda-build conda-verify conda-index
         # In the remaining part of code, unless activating/switching
         # environment and installing packages, we all use `conda` command.
         # This is due to there is no `micromamba index` or `micromamba build`
@@ -219,14 +233,17 @@ if [ -z "${env_check}" ]; then
 else
     echo "Activating environment \"${fullenv}\""
     conda_exec activate "${fullenv}"
+    # Ensure that the build folder is added to the channel list
+    conda config --env --add channels "file://${CONDA_PREFIX}/conda-bld"
 fi
 conda_exec env list
-
 
 # Build local packages.  These are built in an isolated environment with
 # all dependencies installed from upstream or our local $CONDA_PREFIX/conda-bld.
 # The conda executable and its plugins (conda-build, conda-verify, etc)
 # are always kept in the base environment.
+
+export CONDA_BLD_PATH="${CONDA_PREFIX}/conda-bld"
 
 local_pkgs=""
 while IFS='' read -r line || [[ -n "${line}" ]]; do
@@ -238,8 +255,7 @@ while IFS='' read -r line || [[ -n "${line}" ]]; do
         local_pkgs="${local_pkgs} ${pkgname}"
         echo -e "\n\n"
         echo "Building local package '${pkgname}'" 2>&1 | tee "log_${pkgname}"
-        conda build --croot "${CONDA_PREFIX}/conda-bld/temp_build" \
-            --output-folder "${CONDA_PREFIX}/conda-bld" \
+        conda build \
             --variants "{'python':['${python_major_minor}']}" \
             ${pkgrecipe} 2>&1 | tee -a "log_${pkgname}"
     fi
@@ -270,15 +286,8 @@ conda_exec activate "${fullenv}"
 # Install local conda packages.
 echo -e "\n\n"
 echo "Installing local packages..." | tee -a "log_conda"
-if [[ -n "${base}" || -n "$CONDA_EXE" ]]; then
-    conda_exec install --yes --use-local ${local_pkgs} \
-        2>&1 | tee -a "log_conda"
-elif [ -n "$MAMBA_EXE" ]; then
-    # micromamba does not have --use-local option,  but it follows the
-    # channel priority order defined in `${CONDA_PREFIX}/.condarc`
-    conda_exec install --yes ${local_pkgs} \
-        2>&1 | tee -a "log_conda"
-fi
+conda_exec install --yes ${local_pkgs} \
+    2>&1 | tee -a "log_conda"
 
 conda_exec deactivate
 conda_exec activate "${fullenv}"
@@ -376,3 +385,6 @@ fi
 if [ -n "${install_jupyter_setup}" ]; then
     source "${scriptdir}/tools/install_jupyter_setup.sh"
 fi
+
+# Clean up
+conda clean --all --yes

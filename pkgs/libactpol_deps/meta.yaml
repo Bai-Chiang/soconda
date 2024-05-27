@@ -10,16 +10,17 @@ package:
 source:
   url: https://github.com/ACTCollaboration/libactpol_deps/archive/{{ version }}.tar.gz
   sha256: {{ sha256 }}
+  patches:
+    - gcc_hardcode.patch
 
 build:
   number: {{ build }}
   skip: true  # [win]
-  run_exports:
-    - libactpol_deps
 
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
     - llvm-openmp # [osx]
     - automake
@@ -30,9 +31,8 @@ requirements:
   host:
     - llvm-openmp # [osx]
     - libgomp # [linux]
-    - openblas * openmp_*
-    - libopenblas * openmp_*
-    - liblapack
+    - libopenblas * *openmp*
+    - libblas * *openblas
     - zziplib
   run:
 
