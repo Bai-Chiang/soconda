@@ -5,3 +5,4 @@ jupyterlab
 wurlitzer
 plotly
 plotly-resampler
+qt6-wayland
