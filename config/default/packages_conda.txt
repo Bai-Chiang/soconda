@@ -5,6 +5,7 @@ jupyterlab
 wurlitzer
 plotly
 plotly-resampler
+qt-wayland
 pip-autoremove
 # Following packages for SOOPERCOOL
 cfitsio
