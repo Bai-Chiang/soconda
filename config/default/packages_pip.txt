@@ -11,3 +11,6 @@ https://github.com/simonsobs/sotodlib/archive/master.tar.gz
 # The mapsims package has hard-coded versions of pysm3 and
 # pixell, which un-installs our versions of those packages.
 #https://github.com/galsci/mapsims/archive/main.tar.gz
+# Following packages for SOOPERCOOL
+https://github.com/simonsobs/SOOPERCOOL/archive/master.tar.gz
+#https://github.com/simonsobs/so_noise_models/archive/master.tar.gz

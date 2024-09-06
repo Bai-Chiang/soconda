@@ -5,3 +5,13 @@ jupyterlab
 wurlitzer
 plotly
 plotly-resampler
+pip-autoremove
+# Following packages for SOOPERCOOL
+cfitsio
+fftw
+sacc
+camb
+numpydoc
+sympy
+qp-prob
+jinja2
