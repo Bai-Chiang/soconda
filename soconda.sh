@@ -66,8 +66,8 @@ if [ -z "${version}" ]; then
 fi
 
 if [ -z "${envname}" ]; then
-    echo "Environment root name not specified, using \"soconda\""
-    envname="soconda"
+    echo "Environment root name not specified, using \"SOOPERCOOL\""
+    envname="SOOPERCOOL"
 fi
 # The full environment name, including the root and version.
 if [ "${envname}" = "base" ]; then
