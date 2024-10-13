@@ -12,5 +12,5 @@ https://github.com/simonsobs/sotodlib/archive/master.tar.gz
 # pixell, which un-installs our versions of those packages.
 #https://github.com/galsci/mapsims/archive/main.tar.gz
 # Following packages for SOOPERCOOL
-https://github.com/simonsobs/SOOPERCOOL/archive/master.tar.gz
+git+https://github.com/simonsobs/SOOPERCOOL.git@tutorial_planck
 #https://github.com/simonsobs/so_noise_models/archive/master.tar.gz
