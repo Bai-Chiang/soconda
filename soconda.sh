@@ -261,6 +261,9 @@ while IFS='' read -r line || [[ -n "${line}" ]]; do
             --variants "{'python':['${python_major_minor}']}" \
             --numpy 1.26 \
             ${pkgrecipe} 2>&1 | tee -a "log_${pkgname}"
+        if [[ $? != 0 ]] ; then
+            exit 1
+        fi
     fi
 done < "${confdir}/packages_local.txt"
 
