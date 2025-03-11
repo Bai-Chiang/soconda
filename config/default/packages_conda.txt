@@ -6,6 +6,7 @@ wurlitzer
 plotly
 plotly-resampler
 qt6-wayland
+ipython_genutils
 # BBPipe
 ipyparallel
 entrypoints
