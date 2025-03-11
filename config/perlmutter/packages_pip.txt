@@ -16,3 +16,6 @@
 libsubmit==0.4.0
 parsl<0.6.0
 https://github.com/simonsobs/BBPipe/archive/master.tar.gz
+#
+# BBSims
+https://github.com/simonsobs/BBSims/archive/master.tar.gz
