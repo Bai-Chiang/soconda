@@ -1,7 +1,1 @@
-# Adjust the default python version
-python=3.11.*
-#
-jupyterlab
-wurlitzer
-plotly
-plotly-resampler
+../default/packages_conda.txt
