@@ -7,12 +7,15 @@
 # for the environment into a user's home directory.
 
 # Install a module file?
-install_module=yes
+install_module=no
 
 # Install jupyter kernel setup script?
-install_jupyter_setup=yes
+install_jupyter_setup=no
 
 # Add any other shell commands here for this system...
+# Reinstall sotodlib as develop mode
+pip uninstall --yes sotodlib
+pip install --no-use-pep517 -e "$HOME/git/sotodlib"
 
 # Forcibly replace the conda pyfftw package with the wheel
 # until this upstream PR is merged:

@@ -13,6 +13,9 @@ install_module=yes
 install_jupyter_setup=yes
 
 # Add any other shell commands here for this system...
+# Reinstall sotodlib as develop mode
+pip uninstall --yes sotodlib
+pip install --no-use-pep517 -e "$HOME/devel/sotodlib"
 
 # Forcibly replace the conda pyfftw package with the wheel
 # until this upstream PR is merged:
