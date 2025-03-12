@@ -21,3 +21,6 @@ jupyter_core
 jupyter_client
 jupyterlab_pygments
 python-fastjsonschema
+#
+# BBNILC
+healpix_cxx

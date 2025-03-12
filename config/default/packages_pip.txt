@@ -18,4 +18,7 @@ parsl<0.6.0
 https://github.com/simonsobs/BBPipe/archive/master.tar.gz
 #
 # BBSims
-https://github.com/simonsobs/BBSims/archive/master.tar.gz
+https://github.com/simonsobs/BBSims/archive/main.tar.gz
+#
+# BBNILC
+https://github.com/Bai-Chiang/Pixel_ILC/archive/master.tar.gz
