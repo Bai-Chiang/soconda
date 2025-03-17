@@ -62,5 +62,5 @@ tqdm
 ipykernel
 pyfftw
 numdifftools
-namaster
+namaster<2.0
 pysm3
