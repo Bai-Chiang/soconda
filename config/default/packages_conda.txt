@@ -24,3 +24,4 @@ python-fastjsonschema
 #
 # BBNILC
 healpix_cxx
+emcee
