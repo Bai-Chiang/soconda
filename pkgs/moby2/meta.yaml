@@ -32,7 +32,7 @@ requirements:
     - gsl
     - libactpol
     - future
-    - numpy
+    - numpy<2
     - scipy
     # Although not a dependency, we put numba here to force
     # building with a numba-compatible numpy version
@@ -55,6 +55,7 @@ requirements:
     - astropy
     - ephem
     - pytz
+    - numpy<2
 
 test:
   imports:
