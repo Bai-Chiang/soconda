@@ -1,11 +1,11 @@
 #!/bin/bash
 
-kerneldir=${HOME}/.local/share/jupyter/kernels/soconda-@VERSION@
+kerneldir=${HOME}/.local/share/jupyter/kernels/soconda-toast_dev-@VERSION@
 if [ -d ${kerneldir} ]; then
-    echo "soconda @VERSION@ is already installed in ${kerneldir}, skipping." >&2
+    echo "soconda-toast_dev @VERSION@ is already installed in ${kerneldir}, skipping." >&2
     exit 0
 else
-    echo "soconda installing kernel version @VERSION@ to ${kerneldir}"
+    echo "soconda-toast_dev installing kernel version @VERSION@ to ${kerneldir}"
 fi
 mkdir -p "${kerneldir}"
 echo '
@@ -18,7 +18,7 @@ echo '
         "-f",
         "{connection_file}"
     ],
-    "display_name": "soconda @VERSION@",
+    "display_name": "soconda-toast_dev @VERSION@",
     "env": {
         "PATH": "@ENVPREFIX@/bin",
         "PYTHONPATH": "${HOME}/.local/soconda/@VERSION@/lib/python@PYVER@/site-packages"
