@@ -13,3 +13,7 @@ install_module=yes
 install_jupyter_setup=yes
 
 # Add any other shell commands here for this system...
+
+# Reinstall sotodlib as develop mode
+pip uninstall --yes sotodlib
+pip install -e "$HOME/devel/sotodlib"
