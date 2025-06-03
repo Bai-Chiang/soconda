@@ -311,7 +311,7 @@ if [ -z "${MPICC}" ]; then
         | tee -a "log_mpi4py"
     echo "from the conda package, rather than building from source." \
         | tee -a "log_mpi4py"
-    conda_exec install --yes openmpi mpi4py 2>&1 | tee -a "log_mpi4py"
+    conda_exec install --yes mpich mpi4py 2>&1 | tee -a "log_mpi4py"
     [[ $? != 0 ]] && exit 1
     # Disable the ancient openib btl, in order to avoid a harmless warning
     echo 'btl = ^openib' >> "${CONDA_PREFIX}/etc/openmpi-mca-params.conf"
