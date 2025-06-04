@@ -1,6 +1,5 @@
-
-{% set version = "3.0.0a29" %}
-{% set sha256 = "9bc8d32dca486a3ff8592a0cbe665cf85e2422e4aedc2f949a1d02dfa0389791" %}
+{% set version = "3.0.0a34" %}
+#{% set sha256 = "57689a78cec88030c4f770a6bcde7e1a101bd149f66e7e1c6db3f41451e93ff3" %}
 
 {% set build = 0 %}
 
@@ -10,7 +9,7 @@ package:
 
 source:
   url: https://github.com/hpc4cmb/toast/archive/refs/tags/{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  #sha256: {{ sha256 }}
   #patches:
   #  - openmp_linking.patch
   #  - debug_lapack.patch
