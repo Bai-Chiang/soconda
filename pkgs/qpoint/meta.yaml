@@ -28,7 +28,7 @@ requirements:
     - libblas * *openblas
     - python
     - setuptools
-    - numpy
+    - numpy<2
     - scipy
     # Although not a dependency, we put numba here to force
     # building with a numba-compatible numpy version
@@ -45,6 +45,7 @@ requirements:
     - {{ pin_compatible("libblas") }}
     - python
     - astropy
+    - numpy<2
 
 test:
   imports:

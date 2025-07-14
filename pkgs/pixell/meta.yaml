@@ -35,7 +35,7 @@ requirements:
     - python
     - meson-python
     - cython
-    - numpy
+    - numpy<2
     - scipy
     - astropy
     - healpy
@@ -60,6 +60,7 @@ requirements:
     - h5py
     - pillow
     - pyfftw
+    - numpy<2
 
 test:
   imports:

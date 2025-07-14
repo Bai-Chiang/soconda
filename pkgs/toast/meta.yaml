@@ -34,7 +34,7 @@ requirements:
     - libopenblas * *openmp*
     - libblas * *openblas
     - python
-    - numpy
+    - numpy<2
     - scipy
     - fftw
     - suitesparse
@@ -62,6 +62,7 @@ requirements:
     - traitlets>=5.0
     - psutil
     - pshmem>=1.2.1
+    - numpy<2
 
 test:
   imports:

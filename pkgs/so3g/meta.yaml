@@ -29,7 +29,7 @@ requirements:
     - libblas * *openblas
     - openblas * *openmp*
     - python
-    - numpy
+    - numpy<2
     - scipy
     - boost
     - libboost-devel
@@ -65,6 +65,7 @@ requirements:
     - sqlalchemy
     - pysqlite3
     - tqdm
+    - numpy<2
 
 test:
   imports:
