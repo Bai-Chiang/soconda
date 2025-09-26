@@ -9,7 +9,9 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/hpc4cmb/toast/archive/254188e3faa291a3eed2eec852e4a3fe8c8f6d17.tar.gz
+  #url: https://github.com/hpc4cmb/toast/archive/refs/tags/{{ version }}.tar.gz
+  url: https://github.com/hpc4cmb/toast/archive/48ba079c0a013ffcd84ec5fb98bf41411a6b9a33.tar.gz
+  #url: https://github.com/bai-chiang/toast/archive/revert_PR846.tar.gz
   #sha256: {{ sha256 }}
   #patches:
   #  - openmp_linking.patch
