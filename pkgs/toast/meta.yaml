@@ -1,6 +1,6 @@
 
-{% set version = "3.0.0a36" %}
-{% set sha256 = "0308e462e979e48d4a947b2e1de5f29911eebcf1e97f073fbe945bcb0b7518fb" %}
+{% set version = "3.0.0a39" %}
+#{% set sha256 = "0308e462e979e48d4a947b2e1de5f29911eebcf1e97f073fbe945bcb0b7518fb" %}
 
 {% set build = 0 %}
 
@@ -9,8 +9,8 @@ package:
   version: {{ version }}
 
 source:
-  #url: https://github.com/hpc4cmb/toast/archive/refs/tags/{{ version }}.tar.gz
-  url: https://github.com/hpc4cmb/toast/archive/48ba079c0a013ffcd84ec5fb98bf41411a6b9a33.tar.gz
+  url: https://github.com/hpc4cmb/toast/archive/refs/tags/{{ version }}.tar.gz
+  #url: https://github.com/hpc4cmb/toast/archive/48ba079c0a013ffcd84ec5fb98bf41411a6b9a33.tar.gz
   #url: https://github.com/bai-chiang/toast/archive/revert_PR846.tar.gz
   #sha256: {{ sha256 }}
   #patches:
