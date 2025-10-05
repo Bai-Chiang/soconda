@@ -1,6 +1,6 @@
 {% set version = "0.29.0" %}
 #{% set sha256 = "b08b81b6df62dc01a8b8ed639a6fa593963b7593dbb9638f483fca78930a658f" %}
-{% set sha256 = "67879d6061c5c5b06a6a5c17af4006c0a2acb251f62652b1a8cfeaf298c950c6" %}
+{% set sha256 = "a4764e5b33eb1ab92cc15b6b78786ac07888d9ae9187ddf63f675c3399cb640f" %}
 
 {% set build = 0 %}
 
