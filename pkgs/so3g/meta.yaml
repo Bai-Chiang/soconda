@@ -65,6 +65,7 @@ requirements:
     - sqlalchemy
     - pysqlite3
     - tqdm
+    - ceres-solver=*=cpu*
 
 test:
   imports:
