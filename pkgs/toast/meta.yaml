@@ -9,8 +9,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/hpc4cmb/toast/archive/refs/tags/{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://github.com/hpc4cmb/toast/archive/c256f446eaee8add0db0e7008cb735cc4d7f6a32.tar.gz
+  #sha256: {{ sha256 }}
   #patches:
   #  - openmp_linking.patch
   #  - debug_lapack.patch
