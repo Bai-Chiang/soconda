@@ -8,8 +8,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/user-attachments/files/23375626/so3g-0.2.4.tar.gz
-  sha256: {{ sha256 }}
+  url: https://github.com/simonsobs/so3g/archive/dct_compat_detvecs.tar.gz
+  #sha256: {{ sha256 }}
 
 build:
   number: {{ build }}
