@@ -9,7 +9,7 @@ package:
 
 source:
   git_url: https://github.com/hpc4cmb/toast.git
-  git_rev: 6658e3f5265daa3d43afc527cea09645002f85f2
+  git_rev: dab395584721798b66b9b80be69b928d8f469410
   #patches:
   #  - openmp_linking.patch
   #  - debug_lapack.patch
